@@ -20,7 +20,7 @@ service: python-bogota # NOTE: update this with your service name
 provider:
   name: aws
   runtime: python3.6
-  stage: dev
+  stage: ${file(.env.yml):ENVIRONMENT}
   region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -45,15 +45,14 @@ provider:
 
 # you can add packaging information here
 package:
+  exclude:
+    - ./**
   include:
     - handler.py  
     - src/**
-#  exclude:
-#    - exclude-me.py
-#    - exclude-me-dir/**
 
 functions:
-  register_talk:
+  registerTalk:
     handler: handler.register_talk
     timeout: 30
     memorySize: 128
@@ -62,7 +61,14 @@ functions:
           path: api
           method: get
           cors: true
+    environment:
+      DYNAMO_HOST: ${self:custom.stageEnv.DYNAMO_HOST}
 
+custom:
+  stageEnv: ${file(.env.yml):${self:provider.stage}}
+  pythonRequirements:
+    fileName: requirements_dev.txt
+    dockerizePip: false
 
 plugins:
   - serverless-python-requirements

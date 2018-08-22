@@ -5,4 +5,9 @@ __pycache__/
 .serverless
 
 node_modules/
+.DS_Store
+.env.yml
+.idea/
+template.yml
+
 
