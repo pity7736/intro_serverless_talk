@@ -1,10 +1,11 @@
 import logging
 import json
 
-from src.talks.controller import create_talk
+from src.talks.controller import create_talk, get_talks
 
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def hello(event, context):
@@ -47,3 +48,12 @@ def register_talk(event, context):
         'body': json.dumps(response)
     }
 
+
+def list_talks(event, context):
+    logger.info('event: %s', event)
+    status_code = 200
+    response = {'message': 'ok', 'talks': get_talks()}
+    return {
+        'statusCode': status_code,
+        'body': json.dumps(response)
+    }

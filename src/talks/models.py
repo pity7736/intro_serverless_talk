@@ -1,5 +1,6 @@
 import datetime
 import os
+from copy import deepcopy
 from uuid import uuid4
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute, ListAttribute, MapAttribute
@@ -27,3 +28,8 @@ class Talk(Model):
         if type(self.when) is str:
             self.when = datetime.datetime.strptime(self.when, '%Y-%m-%dT%H:%M:%S')
         super().save(*args, **kwargs)
+
+    def get_json_serializable(self):
+        result = deepcopy(self.attribute_values)
+        result['when'] = self.when.isoformat()
+        return result

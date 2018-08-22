@@ -33,6 +33,9 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:Scan
       Resource: "arn:aws:dynamodb:${self:provider.region}:211147329774:table/${self:custom.stageEnv.DYNAMO_TALK_TABLE}"
+  environment:
+        DYNAMO_HOST: ${self:custom.stageEnv.DYNAMO_HOST}
+        DYNAMO_TALK_TABLE: ${self:custom.stageEnv.DYNAMO_TALK_TABLE}
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -72,9 +75,15 @@ functions:
           path: talks/
           method: post
           cors: true
-    environment:
-      DYNAMO_HOST: ${self:custom.stageEnv.DYNAMO_HOST}
-      DYNAMO_TALK_TABLE: ${self:custom.stageEnv.DYNAMO_TALK_TABLE}
+  listTalks:
+    handler: handler.list_talks
+    timeout: 30
+    memorySize: 128
+    events:
+      - http:
+          path: talks/
+          method: get
+          cors: true
 
 custom:
   stageEnv: ${file(.env.yml):${self:provider.stage}}
