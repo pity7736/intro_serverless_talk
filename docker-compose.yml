@@ -1,0 +1,22 @@
+version: '2'
+services:
+  dynamoadmin:
+    restart: always
+    image: dynamodb_admin
+    container_name: dynamoadmin
+    environment:
+      - DYNAMO_ENDPOINT=http://localhost:8000
+    ports:
+      - 7001:8001
+    links:
+      - dynamodb:dynamo_db
+
+  dynamodb:
+    restart: always
+    image: cnadiminti/dynamodb-local:latest
+    container_name: dynamodb
+    ports:
+      - 7000:8000
+    volumes:
+      - ./dynamodb_local_db:/dynamodb_local_db
+

@@ -1,0 +1,23 @@
+{
+  "name": "intro_serverless_talk",
+  "version": "0.1.0",
+  "description": "meetup bogotá",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pity7736/intro_serverless_talk.git"
+  },
+  "author": "julián cortés",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pity7736/intro_serverless_talk/issues"
+  },
+  "homepage": "https://github.com/pity7736/intro_serverless_talk#readme",
+  "devDependencies": {
+    "serverless-python-requirements": "^4.1.1",
+    "serverless-sam": "^0.1.0"
+  }
+}
