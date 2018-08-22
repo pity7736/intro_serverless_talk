@@ -9,5 +9,4 @@ node_modules/
 .env.yml
 .idea/
 template.yml
-
-
+dynamodb_local_db/
